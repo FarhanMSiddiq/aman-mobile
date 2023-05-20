@@ -43,6 +43,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget pageNow(BuildContext context){
     final GlobalKey<PartDashboardState> _keyDashboard = GlobalKey();
     final GlobalKey<PartPermohonanState> _keyPermohonan = GlobalKey();
+    final GlobalKey<PartNotificationState> _keyNotification = GlobalKey();
 
     if(statePage==0){
       if(prefs!=null){
@@ -53,7 +54,7 @@ class _NavigationPageState extends State<NavigationPage> {
     }else if(statePage==1){
       return PartPermohonan(key: _keyPermohonan, userData : UserData(prefs));
     }else if(statePage==2){
-      return PartNotification();
+      return PartNotification(key: _keyNotification,userData : UserData(prefs));
     }else if(statePage==3){
       return PartProfile(context,UserData(prefs));
     }else{

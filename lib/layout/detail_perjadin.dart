@@ -715,28 +715,6 @@ class _DetailPerjadinPageState extends State<DetailPerjadinPage> {
                                   children: <Widget>[
                                     Container(
                                       padding: EdgeInsets.all(10),
-                                      child: Text("Bukti Pembayaran",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      child: (detailPerjadin!.pathTransfer!="") ? 
-                                      InkWell(
-                                        onTap: (){
-                                            showPdfDialog(context, detailPerjadin!.pathTransfer , "Bukti Transfer");
-                                        },
-                                        child: Text("${detailPerjadin!.pathTransfer} \n(Tekan untuk melihat surat)"),
-                                      ) : Text("Bukti Transfer Belum Ada."),
-                                    ),
-                                  ],
-                                ),
-                                TableRow(
-                                  children: <Widget>[
-                                    Container(
-                                      padding: EdgeInsets.all(10),
                                       child: Text("Status Perjadin (Pendampingan)",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold
