@@ -5,8 +5,17 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
+class PartProfile extends StatefulWidget {
+  final UserData userData;
 
-Widget PartProfile(BuildContext context, UserData userData){
+  PartProfile({Key? key, required this.userData}) : super(key: key);
+
+  @override
+  PartProfileState createState() => PartProfileState();
+}
+
+
+class PartProfileState extends State<PartProfile> {
 
     void showConfirmLogout(){
           showDialog(context: context,
@@ -56,7 +65,7 @@ Widget PartProfile(BuildContext context, UserData userData){
                                           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
                                         ),
                                         onPressed: (){
-                                            userData.clear();
+                                            widget.userData.clear();
                                             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginPage(title: 'Login')));
                                         },
                                         child: Text("Ya ",style: TextStyle(fontSize: 12,color:Colors.green))),
@@ -81,7 +90,10 @@ Widget PartProfile(BuildContext context, UserData userData){
           );
         }
 
-  return Container(
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
     margin: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
     child: SingleChildScrollView(
       child: Column(
@@ -101,19 +113,19 @@ Widget PartProfile(BuildContext context, UserData userData){
           ),
           ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: (userData!.pathFoto!="") ? Image.network(userData!.pathFoto.replaceAll('aman-madrasah-staging', 'aman-madrasah') , width: 100 , height: 100 , fit: BoxFit.cover,) : 
+                    child: (widget.userData.pathFoto!="") ? Image.network(widget.userData.pathFoto.replaceAll('aman-madrasah-staging', 'aman-madrasah') , width: 100 , height: 100 , fit: BoxFit.cover,) : 
                     Image.asset('lib/images/ic_user.png' , height: 100 , width: 100),
           ),
           Container(
             margin: EdgeInsets.only(top: 10),
-            child: Text(userData.name,
+            child: Text(widget.userData.name,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold
               ),
             ),
           ),
-          Text(userData.noTelp),
+          Text(widget.userData.noTelp),
           Container(
             margin: EdgeInsets.only(top: 40),
             padding: EdgeInsets.all(20),
@@ -148,7 +160,7 @@ Widget PartProfile(BuildContext context, UserData userData){
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
-                          child: Text(userData.nik)
+                          child: Text(widget.userData.nik)
                         ),
                       ],
                     ),
@@ -164,7 +176,7 @@ Widget PartProfile(BuildContext context, UserData userData){
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
-                          child: Text(userData.email)
+                          child: Text(widget.userData.email)
                         ),
                       ],
                     ),
@@ -180,7 +192,7 @@ Widget PartProfile(BuildContext context, UserData userData){
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
-                          child: Text(userData.tanggalLahir)
+                          child: Text(widget.userData.tanggalLahir)
                         ),
                       ],
                     ),
@@ -196,7 +208,7 @@ Widget PartProfile(BuildContext context, UserData userData){
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
-                          child: Text(userData.jenisKelamin)
+                          child: Text(widget.userData.jenisKelamin)
                         ),
                       ],
                     ),
@@ -212,7 +224,7 @@ Widget PartProfile(BuildContext context, UserData userData){
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
-                          child: Text(userData.jabatan)
+                          child: Text(widget.userData.jabatan)
                         ),
                       ],
                     ),
@@ -228,7 +240,7 @@ Widget PartProfile(BuildContext context, UserData userData){
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
-                          child: Text(userData.alamat)
+                          child: Text(widget.userData.alamat)
                         ),
                       ],
                     )
@@ -240,4 +252,5 @@ Widget PartProfile(BuildContext context, UserData userData){
       ),
     ),
   );
+  }
 }

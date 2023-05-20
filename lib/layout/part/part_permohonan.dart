@@ -28,9 +28,17 @@ class PartPermohonanState extends State<PartPermohonan> {
   String keyword = "";
   String status = "";
 
+
+  @override
+  void setState(fn) {
+    if(mounted) {
+      super.setState(fn);
+    }
+  }
+
   void initState(){
     loadData();
-
+    
     scrollController.addListener(() {
       if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
           loadData();
@@ -158,9 +166,6 @@ class PartPermohonanState extends State<PartPermohonan> {
       setState(() {
         isLoading = false;
       });
-    
-
-      
   }
 
 
@@ -325,9 +330,9 @@ class PartPermohonanState extends State<PartPermohonan> {
                                                                     ),
                                                                   ],
                                                                 ),
-                                      child: TextField(
+                                      child: TextFormField(
                                                 textInputAction: TextInputAction.search,
-                                                onSubmitted : (val){
+                                                onFieldSubmitted : (val){
                                                   perjadin.clear();
                                                   if(val!=""){
                                                       setState(() {

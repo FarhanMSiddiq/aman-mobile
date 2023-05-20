@@ -4,6 +4,7 @@ import 'package:aman_mobile/layout/widget/loading.dart';
 import 'package:aman_mobile/model/user_data.dart';
 import 'package:bottom_bar_matu/utils/app_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+    
 
    Widget buildEmail() {
       return Container(
@@ -128,16 +130,16 @@ class _LoginPageState extends State<LoginPage> {
     }else{
       
       try {
+         
+          final firebase = FirebaseMessaging.instance;
+          final token = await firebase.getToken();
+          
           final dio = Dio();
-          final login = await dio.post('https://staging.impstudio.id/aman_pendampingan_jp/api/v1/mobile/login', data: {
-            'email' : emailController.text,
-            'password' : passwordController.text
-          });
-
 
           final loginResponse = await dio.post('https://staging.impstudio.id/aman_pendampingan_jp/api/v1/mobile/login', data: {
             'email' : emailController.text,
-            'password' : passwordController.text
+            'password' : passwordController.text,
+            'fcm_token' : token
           });
           
           if(loginResponse.statusCode==200){
@@ -180,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pop(context);
         
         if(e is DioError){
-          
+
           snackBar(e.response!.data['message']['error'], context);
 
         }else{
